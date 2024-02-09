@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>To-Do List</h2>
+    
+    <ul>
+        <li th:each="activity : ${toDo.items}">
+            <span th:text="${activity.name}"></span>
+            <span th:text="' - Priority: ' + ${activity.priority}"></span>
+        </li>
+    </ul>
+    
+    <form th:action="@{/todo/add}" method="post">
+        <label for="activityName">Add Activity:</label>
+        <input type="text" id="activityName" name="activityName" required>
+        <button type="submit">Add</button>
+    </form>
+    
+    <form th:action="@{/todo/remove}" method="post">
+        <label for="priorityToRemove">Remove Activity by Priority:</label>
+        <input type="text" id="priorityToRemove" name="priorityToRemove" required>
+        <button type="submit">Remove</button>
+    </form>
+</body>
+</html>
